@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://dd6vnopbtewa"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_kpvrj"]
+[ext_resource type="Script" path="res://cpu.gd" id="2_jjr1r"]
+[ext_resource type="Script" path="res://display.gd" id="3_6ibni"]
+[ext_resource type="Script" path="res://input.gd" id="4_5ugw4"]
+[ext_resource type="Script" path="res://audio_stream_player.gd" id="5_cjvgi"]
+[ext_resource type="Script" path="res://rom_selector.gd" id="6_6qvy7"]
+
+[node name="Main" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_kpvrj")
+
+[node name="CPU" type="Node" parent="."]
+script = ExtResource("2_jjr1r")
+
+[node name="Display" type="Node2D" parent="."]
+script = ExtResource("3_6ibni")
+
+[node name="Input" type="Node" parent="."]
+script = ExtResource("4_5ugw4")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("5_cjvgi")
+
+[node name="ROMSelector" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_6qvy7")
+
+[node name="FileDialog" type="FileDialog" parent="ROMSelector"]
+position = Vector2i(0, 36)
+size = Vector2i(500, 500)
+visible = true
+
+[node name="MenuContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EditorButton" type="Button" parent="MenuContainer"]
+visible = false
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Editor"
+
+[connection signal="pressed" from="MenuContainer/EditorButton" to="." method="_on_editor_button_pressed"]
