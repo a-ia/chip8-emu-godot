@@ -23,9 +23,10 @@ func _ready():
 func _on_rom_selected(path: String):
 	cpu.reset()
 	if cpu.load_rom(path):
-		rom_selector.hide()
-		set_process(true) # Start emu
-		instruction_timer = 0.0 # Reset timer
+		rom_selector.hide_dialog()
+		emulation_running = true
+		set_process(true)
+		instruction_timer = 0.0
 	else:
 		print("Failed to load ROM")
 
@@ -58,10 +59,11 @@ func _process(delta):
 
 func _input(event):
 	if event.is_action_pressed("pause"):
-		emulation_running = !emulation_running  # Toggle state
-		set_process(emulation_running)
-		
 		if emulation_running:
-			rom_selector.hide_dialog()
-		else:
+			emulation_running = false
+			set_process(false)
 			rom_selector.show_dialog()
+		else:
+			emulation_running = true
+			set_process(true)
+			rom_selector.hide_dialog()

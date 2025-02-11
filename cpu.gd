@@ -113,12 +113,12 @@ func reset():
 	sound_timer = 0
 	pc = 0x200  # Start of ROM
 	keys.fill(false)
-
-	# Reload font set
-	# load_fontset()
 	
-	# Clear display
-	emit_signal("display_updated")
+	# Clear display pixels
+	for i in range(display.size()):
+		display[i].fill(false)
+	
+	# Display update
 
 func execute_cycle():
 	"""

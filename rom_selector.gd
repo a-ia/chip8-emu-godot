@@ -22,7 +22,6 @@ func show_dialog():
 	file_dialog.show()
 	super.show()
 	
-	
 func hide_dialog():
 	file_dialog.hide()
 	super.show()
