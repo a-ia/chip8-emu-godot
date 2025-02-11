@@ -38,6 +38,7 @@ size = Vector2i(500, 500)
 visible = true
 
 [node name="MenuContainer" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

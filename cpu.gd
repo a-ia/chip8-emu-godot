@@ -22,7 +22,11 @@ const FONT_SET = [
 	0xF0, 0x80, 0xF0, 0x80, 0xF0, # E
 	0xF0, 0x80, 0xF0, 0x80, 0x80  # F
 ]
-
+"""
+func load_fontset():
+	for i in range(FONT_SET.size()):
+		memory[0x50 + i] = FONT_SET[i]  # Load font set starting at 0x50
+"""
 # Memory (4KB)
 var memory: Array = []
 
@@ -66,6 +70,7 @@ func _init():
 	V.fill(0)
 	stack.resize(16)
 	stack.fill(0)
+	# load_fontset()
 
 	# Initialize display (32 rows of 64 pixels)
 	display.resize(32)
@@ -78,11 +83,10 @@ func _init():
 	keys.fill(false)
 
 	# Load font set into memory at 0x50 (80 bytes)
-	for i in range(FONT_SET.size()):
-		memory[0x50 + i] = FONT_SET[i]
+	#for i in range(FONT_SET.size()):
+	#	memory[0x50 + i] = FONT_SET[i]
 
 	rng.randomize()
-
 
 func load_rom(rom_path: String) -> bool:
 	"""
@@ -101,6 +105,20 @@ func load_rom(rom_path: String) -> bool:
 
 	return true
 
+func reset():
+	memory.fill(0)
+	V.fill(0)
+	stack.fill(0)
+	delay_timer = 0
+	sound_timer = 0
+	pc = 0x200  # Start of ROM
+	keys.fill(false)
+
+	# Reload font set
+	# load_fontset()
+	
+	# Clear display
+	emit_signal("display_updated")
 
 func execute_cycle():
 	"""
@@ -115,6 +133,8 @@ func execute_cycle():
 	# Fetch opcode (two bytes)
 	var opcode = (memory[pc] << 8) | memory[pc + 1]
 	pc += 2  # Move to next instruction
+
+	print("Opcode: 0x%04X | PC: 0x%03X" % [opcode, pc])
 
 	# Decode opcode
 	var x = (opcode & 0x0F00) >> 8

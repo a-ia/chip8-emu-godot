@@ -1,4 +1,3 @@
-# Input.gd
 extends Node
 
 @onready var cpu = $"../CPU"

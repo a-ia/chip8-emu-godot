@@ -1,13 +1,4 @@
-# Display.gd
 extends Node2D
-
-# Menu (Control)
-# ├── FileDialog
-# └── PauseMenu (Panel)
-#     ├── VBoxContainer
-#     │   ├── SelectRomButton
-#     │   └── ExitButton
-#     └── Label ("Paused")
 
 const SCALE = 20  # Size of each pixel
 const PIXEL_COLOR = Color(1, 1, 1)  # White
